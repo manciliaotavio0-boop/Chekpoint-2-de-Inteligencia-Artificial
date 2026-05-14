@@ -1,0 +1,72 @@
+[
+  {
+    "id": 1,
+    "texto": "Estou com dor forte no peito e falta de ar desde hoje de manhã.",
+    "esperado": {
+      "classificar_solicitacao_paciente": "sintomas_urgentes",
+      "extrair_informacoes_saude": {
+        "sintoma_principal": "dor forte no peito e falta de ar",
+        "duracao": "desde hoje de manhã",
+        "especialidade_sugerida": "pronto atendimento ou cardiologia",
+        "nivel_urgencia": "alta"
+      },
+      "gerar_resposta_paciente": "Resposta orientando procurar atendimento médico imediatamente."
+    }
+  },
+  {
+    "id": 2,
+    "texto": "Gostaria de marcar uma consulta com dermatologista porque estou com manchas na pele há duas semanas.",
+    "esperado": {
+      "classificar_solicitacao_paciente": "agendamento_consulta",
+      "extrair_informacoes_saude": {
+        "sintoma_principal": "manchas na pele",
+        "duracao": "duas semanas",
+        "especialidade_sugerida": "dermatologia",
+        "nivel_urgencia": "baixa"
+      },
+      "gerar_resposta_paciente": "Resposta orientando o agendamento com dermatologista."
+    }
+  },
+  {
+    "id": 3,
+    "texto": "Tomei o remédio que o médico passou, mas fiquei com enjoo e tontura. Isso é normal?",
+    "esperado": {
+      "classificar_solicitacao_paciente": "duvida_medicamento",
+      "extrair_informacoes_saude": {
+        "sintoma_principal": "enjoo e tontura após medicamento",
+        "duracao": "não informado",
+        "especialidade_sugerida": "médico responsável pela prescrição",
+        "nivel_urgencia": "moderada"
+      },
+      "gerar_resposta_paciente": "Resposta orientando procurar o médico antes de alterar ou interromper o medicamento."
+    }
+  },
+  {
+    "id": 4,
+    "texto": "Recebi meu exame de sangue e queria saber se consigo enviar para avaliação.",
+    "esperado": {
+      "classificar_solicitacao_paciente": "resultado_exame",
+      "extrair_informacoes_saude": {
+        "sintoma_principal": "não informado",
+        "duracao": "não informado",
+        "especialidade_sugerida": "clínico geral",
+        "nivel_urgencia": "baixa"
+      },
+      "gerar_resposta_paciente": "Resposta orientando o envio do exame para avaliação médica."
+    }
+  },
+  {
+    "id": 5,
+    "texto": "Fiz uma cirurgia no joelho há 20 dias e ainda sinto dor ao caminhar. Preciso retornar?",
+    "esperado": {
+      "classificar_solicitacao_paciente": "acompanhamento",
+      "extrair_informacoes_saude": {
+        "sintoma_principal": "dor ao caminhar após cirurgia no joelho",
+        "duracao": "20 dias",
+        "especialidade_sugerida": "ortopedia",
+        "nivel_urgencia": "moderada"
+      },
+      "gerar_resposta_paciente": "Resposta orientando retorno com o médico responsável pelo acompanhamento."
+    }
+  }
+]
