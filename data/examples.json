@@ -1,0 +1,46 @@
+{
+  "classificar_solicitacao_paciente": [
+    {
+      "input": "Quero marcar uma consulta com clínico geral.",
+      "output": "agendamento_consulta"
+    },
+    {
+      "input": "Estou com falta de ar e dor intensa no peito.",
+      "output": "sintomas_urgentes"
+    },
+    {
+      "input": "Posso tomar esse remédio junto com outro medicamento?",
+      "output": "duvida_medicamento"
+    }
+  ],
+  "extrair_informacoes_saude": [
+    {
+      "input": "Estou com febre há dois dias e dor no corpo.",
+      "output": {
+        "sintoma_principal": "febre e dor no corpo",
+        "duracao": "dois dias",
+        "especialidade_sugerida": "clínico geral",
+        "nivel_urgencia": "moderada"
+      }
+    },
+    {
+      "input": "Minha garganta está doendo há uma semana.",
+      "output": {
+        "sintoma_principal": "dor de garganta",
+        "duracao": "uma semana",
+        "especialidade_sugerida": "clínico geral ou otorrinolaringologista",
+        "nivel_urgencia": "baixa"
+      }
+    }
+  ],
+  "gerar_resposta_paciente": [
+    {
+      "input": "Estou com dor de garganta desde ontem.",
+      "output": "Olá! Sentimos muito pelo desconforto. Dor de garganta pode ter diferentes causas, então observe a evolução dos sintomas. Caso piore, venha acompanhada de febre alta ou dificuldade para respirar, procure atendimento médico."
+    },
+    {
+      "input": "Estou sentindo muita tontura desde cedo.",
+      "output": "Olá! Entendemos sua preocupação. A tontura pode estar relacionada a diferentes fatores. Procure repousar, evite dirigir e, se o sintoma persistir, piorar ou vier acompanhado de desmaio, dor no peito ou falta de ar, busque atendimento médico."
+    }
+  ]
+}
