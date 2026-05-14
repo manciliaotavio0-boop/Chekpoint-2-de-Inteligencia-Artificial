@@ -1,0 +1,22 @@
+{
+  "classificacao_urgencia": {
+    "instrucao": "Classifique o nível de urgência do caso clínico descrito como EMERGÊNCIA, URGENTE, POUCO URGENTE ou NÃO URGENTE.",
+    "contexto": "Você está analisando triagens de pacientes em uma UPA ou pronto-socorro. A classificação segue o Protocolo de Manchester.",
+    "formato_output": "Responda APENAS com a classificação: EMERGÊNCIA, URGENTE, POUCO URGENTE ou NÃO URGENTE."
+  },
+  "extracao_dados_paciente": {
+    "instrucao": "Extraia as informações clínicas relevantes do relato do paciente ou prontuário.",
+    "contexto": "Você está processando registros de atendimento de uma clínica médica para alimentar um sistema de prontuário eletrônico.",
+    "formato_output": "Responda APENAS com um JSON: {\"sintomas\": [], \"duracao\": \"\", \"medicamentos\": [], \"alergias\": \"\", \"historico\": \"\"}."
+  },
+  "sumarizacao_prontuario": {
+    "instrucao": "Resuma o prontuário ou relato clínico do paciente de forma objetiva para o médico responsável.",
+    "contexto": "Você está gerando resumos de prontuários para facilitar a revisão médica em um hospital.",
+    "formato_output": "Responda com um parágrafo curto e objetivo, destacando sintomas principais, histórico relevante e medicamentos em uso."
+  },
+  "geracao_orientacao": {
+    "instrucao": "Gere uma orientação pós-consulta clara e acessível para o paciente com base no diagnóstico informado.",
+    "contexto": "Você está auxiliando médicos de uma clínica a redigir instruções de alta ou pós-consulta para os pacientes.",
+    "formato_output": "Responda com tópicos curtos e linguagem simples, adequada para um paciente leigo."
+  }
+}
