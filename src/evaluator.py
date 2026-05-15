@@ -5,7 +5,7 @@ import tiktoken
 # CONTAR OS TOKENS
 def contar_tokens(texto: str) -> int:
 
-    # cl100k_base é o encoding usado pelos modelos modernos (GPT-4, Claude, etc.)
+    
     enc = tiktoken.get_encoding("cl100k_base")
     tokens = enc.encode(texto)
     return len(tokens)
@@ -32,7 +32,7 @@ def medir_acuracia(resposta: str, esperado: str) -> float:
         esp_dict = json.loads(esperado)
         if resp_dict == esp_dict:
             return 1.0
-        # Acerto parcial: conta quantas chaves batem
+        
         chaves = set(esp_dict.keys())
         acertos = sum(1 for k in chaves if resp_dict.get(k) == esp_dict.get(k))
         return round(acertos / len(chaves), 2)
@@ -53,7 +53,7 @@ def medir_consistencia(respostas: list[str]) -> float:
         return 0.0
  
     if len(respostas) == 1:
-        return 1.0  # com uma resposta só, é sempre 100%
+        return 1.0
  
     # Normaliza todas as respostas
     respostas_norm = [r.strip().upper() for r in respostas]
@@ -151,13 +151,13 @@ if __name__ == "__main__":
     # --- Teste 2: medir_acuracia ---
     print("\n[2] MEDIR ACURÁCIA")
     casos = [
-        ("POSITIVO", "POSITIVO"),        # match exato → 1.0
-        ("MUITO POSITIVO", "POSITIVO"),   # não contém → 0.0
+        ("POSITIVO", "POSITIVO"),        
+        ("MUITO POSITIVO", "POSITIVO"),   
         ("A classificação é POSITIVO", "POSITIVO"),  # keyword match → 1.0
         ('{"produto": "Dell", "preco": "R$3500", "defeito": "pixels mortos"}',
-         '{"produto": "Dell", "preco": "R$3500", "defeito": "pixels mortos"}'),  # JSON igual → 1.0
+         '{"produto": "Dell", "preco": "R$3500", "defeito": "pixels mortos"}'),
         ('{"produto": "Dell", "preco": "3500", "defeito": "pixels mortos"}',
-         '{"produto": "Dell", "preco": "R$3500", "defeito": "pixels mortos"}'),  # JSON parcial → 0.67
+         '{"produto": "Dell", "preco": "R$3500", "defeito": "pixels mortos"}'),  
     ]
     for resposta, esperado in casos:
         acc = medir_acuracia(resposta, esperado)
@@ -166,9 +166,9 @@ if __name__ == "__main__":
     # --- Teste 3: medir_consistencia ---
     print("\n[3] MEDIR CONSISTÊNCIA")
     listas = [
-        ["POSITIVO", "POSITIVO", "POSITIVO"],             # 100%
-        ["POSITIVO", "POSITIVO", "MUITO POSITIVO"],       # 67%
-        ["POSITIVO", "MUITO POSITIVO", "EXTREMAMENTE POSITIVO"],  # 33%
+        ["POSITIVO", "POSITIVO", "POSITIVO"],       
+        ["POSITIVO", "POSITIVO", "MUITO POSITIVO"],            
+        ["POSITIVO", "MUITO POSITIVO", "EXTREMAMENTE POSITIVO"],  
     ]
     for lista in listas:
         c = medir_consistencia(lista)
@@ -179,7 +179,7 @@ if __name__ == "__main__":
     testar_temperatura(
         prompt="Classifique: 'Produto excelente, chegou rápido!'",
         temps=[0.1, 0.5, 1.0],
-        llm_client=None  # None = modo simulado
+        llm_client=None  
     )
  
     # --- Teste 5: avaliar_todos com o mock ---
