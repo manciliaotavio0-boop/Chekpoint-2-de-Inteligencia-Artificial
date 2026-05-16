@@ -1,93 +1,266 @@
-🧑‍💻 Pessoa 1 — Infraestrutura & Configuração
-Responsabilidade: Montar a base do projeto para todo o grupo trabalhar.
-O que fazer:
+# Prompt Toolkit — Checkpoint 02
 
-Criar a estrutura de pastas exata descrita no PDF (src/, data/, prompts/, output/, docs/)
-Criar requirements.txt com as dependências (requests, tiktoken, matplotlib, pandas, python-dotenv)
-Criar .env.example com a variável do host do Ollama
-Criar o repositório no GitHub e adicionar todos os membros
-Escrever o README.md com instruções de instalação e execução
-Implementar src/llm_client.py: classe LLMClient com método chat() que chama a API REST do Ollama em http://localhost:11434/api/chat, trata erros (timeout, retry) e retorna {"resposta", "tokens_prompt", "tokens_resposta", "tempo_ms"}
+Projeto desenvolvido para o Checkpoint 02 da disciplina de Prompt Engineering & Artificial Intelligence da FIAP.
 
+O objetivo do projeto é construir um toolkit em Python capaz de aplicar automaticamente diferentes técnicas de prompting em tarefas de negócio, comparar os resultados e recomendar a melhor abordagem.
 
-🧑‍💻 Pessoa 2 — Construtor de Prompts
-Responsabilidade: Módulo que monta os prompts corretamente.
-O que fazer:
+---
 
-Implementar src/prompt_builder.py com 3 funções:
+# Integrantes
 
-montar_prompt(instrucao, contexto, input_dados, formato_output) — separa instrução de dados
-adicionar_exemplos(prompt, exemplos) — adiciona exemplos para few-shot
-adicionar_cot(prompt, passos) — adiciona passos de raciocínio para CoT
+- Otávio Mancilia - RM: 570225
+- Marcos Paulo Sampaio - RM:573987
+- Gabriela Angel - RM: 570808
+- Izabelly Menezes - RM: 570673
+- Tiago Muhlmann - RM: 569569
+- Wesley Marques - RM: 573915
 
+---
 
-Garantir validação: nenhum campo pode estar vazio
-Criar prompts/templates.json com templates de prompt para cada tarefa do domínio
+# Objetivo do Projeto
 
+O sistema recebe tarefas definidas pelo grupo e executa automaticamente 4 técnicas de prompting:
 
-🧑‍💻 Pessoa 3 — As 4 Técnicas de Prompting
-Responsabilidade: O coração do projeto — implementar as técnicas.
-O que fazer:
+- Zero-Shot
+- Few-Shot
+- Chain-of-Thought (CoT)
+- Role Prompting
 
-Implementar src/techniques.py com 4 funções:
+Para cada técnica o sistema:
 
-zero_shot(tarefa, input) — prompt direto, sem exemplos
-few_shot(tarefa, input, exemplos) — prompt com 2-3 exemplos no formato Input: "..." → Output: "..."
-chain_of_thought(tarefa, input, passos) — prompt com raciocínio explícito ("Analise passo a passo: 1... 2... 3...")
-role_prompting(tarefa, input, persona) — usa system prompt com persona detalhada, retorna tupla (system, user)
+- monta o prompt
+- envia para o modelo LLM via Ollama
+- mede tempo e tokens
+- compara os resultados
+- gera relatórios e gráficos automáticos
 
+---
 
-Criar prompts/system_prompts.json com pelo menos 2 personas detalhadas para o domínio (incluir: experiência, especialidade, tom de voz, limitações — não basta "Você é um assistente")
+# Stack Utilizada
 
+- Python 3.10+
+- Ollama API
+- Modelo local via Ollama
+- requests
+- tiktoken
+- pandas
+- matplotlib
+- python-dotenv
 
-🧑‍💻 Pessoa 4 — Tarefas do Domínio & Dados
-Responsabilidade: Definir o que o toolkit vai analisar e alimentar com dados reais.
-O que fazer:
+---
 
-Escolher o domínio do grupo (ex: e-commerce, saúde, RH, jurídico...)
-Implementar src/tasks.py com 3 ou mais tarefas, cada uma com: nome, tipo, instrução, formato de output, exemplos few-shot, passos CoT e persona associada. Os tipos obrigatórios são: Classificação + Extração + pelo menos mais um (Sumarização ou Geração)
-Criar data/inputs.json com 5 inputs reais (textos realistas do domínio, não genéricos) e o output esperado para cada tarefa
-Criar data/examples.json com exemplos para few-shot
+# Estrutura do Projeto
 
+```bash
+prompt-toolkit/
+│
+├── README.md
+├── requirements.txt
+├── .env.example
+├── main.py
+│
+├── src/
+│   ├── __init__.py
+│   ├── llm_client.py
+│   ├── prompt_builder.py
+│   ├── techniques.py
+│   ├── tasks.py
+│   ├── evaluator.py
+│   └── report.py
+│
+├── data/
+│   ├── inputs.json
+│   └── examples.json
+│
+├── prompts/
+│   ├── system_prompts.json
+│   └── templates.json
+│
+├── output/
+│   ├── resultados.csv
+│   └── graficos/
+│
+└── docs/
+    └── CP02_NomeDoGrupo.pdf
+```
 
-🧑‍💻 Pessoa 5 — Avaliador & Relatório
-Responsabilidade: Medir os resultados e gerar o relatório automático.
-O que fazer:
+---
 
-Implementar src/evaluator.py com:
+# Instalação
 
-contar_tokens(texto) via tiktoken
-medir_acuracia(resposta, esperado) — match exato ou por keywords
-medir_consistencia(respostas[]) — roda a mesma pergunta N vezes, calcula % de respostas iguais
-testar_temperatura(prompt, temps) — roda com temperaturas 0.1, 0.5 e 1.0
+## 1. Clonar o repositório
 
+```bash
+git clone URL_DO_REPOSITORIO
+```
 
-Implementar src/report.py com:
+## 2. Entrar na pasta
 
-gerar_tabela(resultados) — DataFrame pandas, salva CSV em output/resultados.csv
-grafico_acuracia(resultados) — barras agrupadas por técnica
-grafico_custo(resultados) — tokens médios por técnica
-grafico_temperatura(resultados) — consistência por temperatura
-recomendar(resultados) — imprime qual técnica foi melhor por tarefa e por quê
+```bash
+cd prompt-toolkit
+```
 
+---
 
+# Criar ambiente virtual
 
+## Windows
 
-🧑‍💻 Pessoa 6 — Orquestrador & Documentação
-Responsabilidade: Fazer tudo funcionar junto e documentar o projeto.
-O que fazer:
+```bash
+python -m venv venv
+venv\Scripts\activate
+```
 
-Implementar main.py seguindo exatamente o fluxo descrito: carrega configs → para cada tarefa aplica as 4 técnicas em cada input → chama evaluator → chama report
-Testar a integração completa (garantir que tudo roda com python main.py)
-Escrever o PDF de documentação (4-6 páginas) com: capa com nomes e RMs, descrição do domínio, diagrama do fluxo (pode ser feito no draw.io), stack técnica, tabela de resultados com screenshots dos gráficos, guia de bolso ("quando usar cada técnica") e reflexão do grupo
+## Linux / Mac
 
+```bash
+python3 -m venv venv
+source venv/bin/activate
+```
 
-⚡ Dica de ordem de execução
-Para não travar, o grupo deve trabalhar nessa sequência:
-Pessoa 1 (infra + llm_client) 
-    → Pessoa 2 (prompt_builder) 
-    → Pessoa 4 (tasks + dados) 
-    → Pessoa 3 (techniques) 
-    → Pessoa 5 (evaluator + report) 
-    → Pessoa 6 (main.py + integração + PDF)
-Pessoas 1 e 4 podem começar ao mesmo tempo. Pessoa 6 só finaliza o main.py depois que os outros módulos estiverem prontos, mas já pode ir escrevendo o PDF.
+---
+
+# Instalar dependências
+
+```bash
+pip install -r requirements.txt
+```
+
+---
+
+# Configuração do Ollama
+
+Instale o Ollama:
+
+- https://ollama.com/
+
+Depois baixe o modelo utilizado:
+
+```bash
+ollama pull gpt-oss:120b
+```
+
+Inicie o servidor:
+
+```bash
+ollama serve
+```
+
+---
+
+# Variáveis de Ambiente
+
+Crie um arquivo `.env` baseado no `.env.example`
+
+Exemplo:
+
+```env
+OLLAMA_HOST=http://localhost:11434
+```
+
+---
+
+# Executando o Projeto
+
+Rodar o sistema principal:
+
+```bash
+python main.py
+```
+
+O fluxo executado será:
+
+1. Carregar tarefas e inputs
+2. Aplicar as 4 técnicas de prompting
+3. Enviar prompts para o Ollama
+4. Medir tempo e tokens
+5. Comparar resultados
+6. Gerar CSV e gráficos automáticos
+
+---
+
+# Técnicas Implementadas
+
+## Zero-Shot
+
+Prompt direto sem exemplos.
+
+## Few-Shot
+
+Prompt com exemplos de entrada e saída.
+
+## Chain-of-Thought
+
+Prompt orientado a raciocínio passo a passo.
+
+## Role Prompting
+
+Uso de personas especializadas através de system prompts.
+
+---
+
+# Métricas Avaliadas
+
+O sistema mede automaticamente:
+
+- Tokens de prompt
+- Tokens de resposta
+- Tempo de execução
+- Consistência
+- Acurácia
+- Custo médio por técnica
+
+---
+
+# Saídas Geradas
+
+Os resultados serão salvos em:
+
+```bash
+output/
+```
+
+Arquivos gerados:
+
+- resultados.csv
+- gráficos PNG
+- recomendações automáticas
+
+---
+
+# Exemplo de Execução
+
+```bash
+python main.py
+```
+
+Exemplo de saída:
+
+```bash
+Tarefa: Classificação de sentimento
+Técnica vencedora: Few-Shot
+Acurácia: 92%
+Tempo médio: 850ms
+```
+
+---
+
+# Requisitos do Projeto
+
+Segundo especificação do checkpoint:
+
+- Projeto modular em Python
+- Uso obrigatório de Ollama
+- Uso obrigatório de tiktoken
+- Uso obrigatório de pandas e matplotlib
+- 4 técnicas de prompting
+- 3 ou mais tarefas
+- 5 inputs reais por tarefa
+
+---
+
+# Disciplina
+
+FIAP — Prompt Engineering & Artificial Intelligence
+
+Checkpoint 02 — Prompt Toolkit
