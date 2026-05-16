@@ -1,0 +1,13 @@
+tarefa,tecnica,acuracia,tokens_prompt,tokens_resposta,tempo_ms
+classificacao,zero_shot,0.8,50,10,300
+classificacao,few_shot,1.0,150,10,400
+classificacao,cot,0.9,120,80,600
+classificacao,role,0.9,200,15,450
+extracao,zero_shot,0.6,60,40,350
+extracao,cot,0.9,100,120,700
+extracao,few_shot,0.8,180,50,500
+extracao,role,0.85,220,60,520
+geracao,zero_shot,0.7,70,90,800
+geracao,role,0.95,210,110,900
+geracao,few_shot,0.85,160,100,850
+geracao,cot,0.8,130,130,950
